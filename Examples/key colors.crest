@@ -1,0 +1,14 @@
+left 90
+
+forever [
+	penup
+	setpos 599 599
+	pendown
+	
+	setpencolor pixel
+	repeat 600 [
+		forward 599
+		setpos 599 minus ycor 1
+	]
+	nextframe
+]

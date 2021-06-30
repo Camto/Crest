@@ -1,0 +1,104 @@
+penup
+setpos 0 0
+pendown
+
+setpencolor 1
+back 0
+
+penup
+setpos 1 0
+pendown
+
+setpencolor 100
+back 1
+setpencolor 400
+back 0
+
+penup
+setpos 0 0
+pendown
+
+setheading 90
+while lessthan pixel 128 [
+	penup
+	setpos pixel 0
+	
+	setpencolor pixel
+	while not equal pixel 599 [ forward 1 ]
+	pendown
+	forward 0
+	
+	penup
+	setpos 0 0
+	setpos pixel 1
+	
+	setpencolor pixel
+	setpos xcor 2
+	
+	pendown
+	forward 0
+	setpencolor 0
+	while lessthan
+		plus plus pencolor pencolor pencolor
+		pixel
+	[
+		setpencolor plus pencolor 1
+	]
+	setpencolor minus pencolor 1
+	forward 0
+	
+	penup
+	setpos xcor 1
+	while not equal pixel 599 [ forward 1 ]
+	pendown
+	forward 1
+	
+	penup
+	setpos 0 0
+	setpos pixel 0
+	
+	setpencolor pixel
+	setpos xcor 2
+	setpencolor plus plus pencolor pixel pixel
+	
+	setpos xcor 0
+	while not equal pixel 599 [ forward 1 ]
+	pendown
+	forward 0
+	
+	penup
+	setpos 0 0
+	setpencolor plus pixel 1
+	pendown
+	forward 0
+]
+
+penup
+setpos 0 1
+pendown
+
+setpencolor 1
+back 0
+
+while lessthan pixel 128 [
+	penup
+	setpos pixel 1
+	
+	setpencolor pixel
+	setpos xcor 0
+	setpos pixel plus 2 3
+	setheading 180
+	while not equal pixel 599 [ forward 2 ]
+	
+	setheading 90
+	pendown
+	forward 0
+	setpencolor 0
+	forward pixel
+	
+	penup
+	setpos 0 1
+	setpencolor plus pixel 1
+	pendown
+	forward 0
+]

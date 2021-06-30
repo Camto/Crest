@@ -1,0 +1,77 @@
+showturtle
+
+penup
+setpos 596 599
+pendown
+right 90
+
+setpencolor 90
+forward 1
+setpencolor 300
+forward 1
+
+forever [
+	penup
+	setpos 599 599
+	setheading 90
+	
+	if equal pixel 150 [
+		setpos 596 599
+		setpencolor 90
+		pendown
+		forward 0
+		
+		penup
+		setpos 597 599
+		setpencolor plus pixel 8
+		pendown
+		forward 0
+	]
+	if equal pixel 151 [
+		setpos 596 599
+		setpencolor 270
+		pendown
+		forward 0
+		
+		penup
+		setpos 597 599
+		setpencolor minus pixel 8
+		pendown
+		forward 0
+	]
+	if equal pixel 152 [
+		setpos 596 599
+		setpencolor 180
+		pendown
+		forward 0
+		
+		penup
+		setpos 598 599
+		setpencolor plus pixel 8
+		pendown
+		forward 0
+	]
+	if equal pixel 153 [
+		setpos 596 599
+		setpencolor 0
+		pendown
+		forward 0
+		
+		penup
+		setpos 598 599
+		setpencolor minus pixel 8
+		pendown
+		forward 0
+	]
+	
+	penup
+	setpos 596 599
+	setheading pixel
+	
+	setpos 597 599
+	setpencolor pixel
+	setpos 598 599
+	setpos pencolor pixel
+	
+	nextframe
+]

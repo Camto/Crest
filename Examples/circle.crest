@@ -1,0 +1,8 @@
+penup
+setpos 100 300
+pendown
+
+forever [
+	forward 1
+	right 0.25
+]

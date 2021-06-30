@@ -1,0 +1,9 @@
+setpos 0 0
+
+repeat 600 [
+	back 599
+	setpencolor plus pencolor 1
+	penup
+	setpos plus xcor 1 0
+	pendown
+]

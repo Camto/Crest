@@ -1,0 +1,69 @@
+right 90
+
+forever [
+	penup
+	setpos 599 599
+	pendown
+	
+	while equal pixel 599 [ nextframe ]
+	
+	ifelse or
+		lessthan pixel 48
+		morethan pixel 53
+	[
+		setpencolor 9
+	] [
+		setpencolor minus pixel 48
+		back 1
+		repeat 99 [ setpencolor plus pencolor pixel ]
+		forward 1
+		
+		while not equal pixel 599 [ nextframe ]
+		while equal pixel 599 [ nextframe ]
+		
+		ifelse or
+			lessthan pixel 48
+			morethan pixel 57
+		[
+			setpencolor 9
+		] [
+			setpencolor minus pixel 48
+			penup
+			back 2
+			pendown
+			back 0
+			repeat 9 [ setpencolor plus pencolor pixel ]
+			penup
+			forward 1
+			setpencolor plus pencolor pixel
+			pendown
+			forward 1
+			
+			while not equal pixel 599 [ nextframe ]
+			while equal pixel 599 [ nextframe ]
+			
+			ifelse or
+				lessthan pixel 48
+				morethan pixel 57
+			[
+				setpencolor 9
+			] [
+				setpencolor plus
+					pencolor
+					minus pixel 48
+			]
+		]
+	]
+	
+	clean
+	setpos 0 0
+	repeat 600 [
+		forward 599
+		setpos 0 plus ycor 1
+	]
+	
+	setpos 599 599
+	while not equal pixel 13 [ nextframe ]
+	while not equal pixel 599 [ nextframe ]
+	clean
+]
