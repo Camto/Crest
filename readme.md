@@ -118,7 +118,7 @@ Crest tries to always runs at 30fps.
 
 Crest can read keyboard input; when you press down a key, that key's code is put in the bottom-rightmost pixel. When a key is released, if none are currently pressed, that pixel becomes white (599). You can run the interpreter with `keycodes` after the file name to make the program print the keycode when you press a key.
 
-All keys that have ascii characters, have that number as their code. But be careful, the enter key corresponds to the carriage feed character (13), not newline. There are no keys for shited versions of keys.
+All keys that have ascii characters, have that number as their code. But be careful, the enter key corresponds to the carriage feed character (13), not newline. There are no keys for shifted versions of keys.
 
 Here is a table of some of the other keycodes, because all would be [far, *far* too many](https://www.freepascal-meets-sdl.net/sdl-2-0-key-code-lookup-table/):
 
