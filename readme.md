@@ -23,7 +23,7 @@ The screen starts out all white, filled by 599s.
 
 ### To Run Crest
 
-The interpreter is `crest.py`, which is used like so: `python ./crest.py <options>`, where options can be any combination of:
+The interpreter is `crest.py`, which is used like so: `python ./crest.py <crest_file> <options>`, where options can be any combination of:
 - `ast` to print out the parsed ast.
 - `keycodes` to print the keycode of each key you press (this is relating to [input](#input))
 - `fps<n>` to make Crest run at that fps instead of 30.
