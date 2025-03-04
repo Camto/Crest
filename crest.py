@@ -21,9 +21,9 @@ with open(sys.argv[1]) as file:
 grammar = lark.Lark(r"""
 	start: stmt*
 	
-	stmt: arity_0_stmt
-		| arity_1_stmt expr
-		| arity_2_stmt expr expr
+	stmt: ARITY_0_STMT
+		| ARITY_1_STMT expr
+		| ARITY_2_STMT expr expr
 		
 		| "if" expr block -> if_
 		| "ifelse" expr block block -> ifelse
@@ -32,26 +32,24 @@ grammar = lark.Lark(r"""
 		| "while" expr block -> while_
 	
 	expr: number
-		| arity_0_expr
-		| arity_1_expr expr
-		| arity_2_expr expr expr
+		| ARITY_0_EXPR
+		| ARITY_1_EXPR expr
+		| ARITY_2_EXPR expr expr
 	
-	arity_0_stmt: /pendown|penup|home|clean|clearscreen|showturtle|hideturtle|nextframe/
+	ARITY_0_STMT: /pendown|penup|home|clean|clearscreen|showturtle|hideturtle|nextframe/
+	ARITY_1_STMT: /forward|back|left|right|setpencolor|setheading|debug/
+	ARITY_2_STMT: /setpos/
 	
-	arity_1_stmt: /forward|back|left|right|setpencolor|setheading|debug/
-	
-	arity_2_stmt: /setpos/
-	
-	arity_0_expr: /heading|pixel|xcor|ycor|pendownp|pencolor|shownp|true|false/
-	
-	arity_1_expr: /not/
-	
-	arity_2_expr: /and|or|equal|lessthan|morethan|plus|minus/
+	ARITY_0_EXPR: /heading|pixel|xcor|ycor|pendownp|pencolor|shownp|true|false/
+	ARITY_1_EXPR: /not/
+	ARITY_2_EXPR: /and|or|equal|lessthan|morethan|plus|minus/
 	
 	?number: SIGNED_FLOAT -> float
 		| SIGNED_INT -> int
 	
-	block: "[" stmt* "]"
+	block: LEFT_SQUARE_BRACKET stmt* RIGHT_SQUARE_BRACKET
+	LEFT_SQUARE_BRACKET: "["
+	RIGHT_SQUARE_BRACKET: "]"
 	
 	%ignore WS
 	
@@ -63,12 +61,6 @@ class transformer(lark.Transformer):
 	start = lambda self, ls: list(ls)
 	stmt = start
 	expr = start
-	arity_0_stmt = lambda self, s: str(s[0])
-	arity_1_stmt = lambda self, s: str(s[0])
-	arity_2_stmt = lambda self, s: str(s[0])
-	arity_0_expr = arity_0_stmt
-	arity_1_expr = arity_0_stmt
-	arity_2_expr = arity_0_stmt
 	block = start
 	if_ = lambda self, ast: ["if"] + ast
 	ifelse = lambda self, ast: ["ifelse"] + ast
