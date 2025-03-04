@@ -76,21 +76,24 @@ if "ast" in options:
 	print(ast)
 
 def color_to_rgb(color):
-	b, g, r = map(int, str(color).zfill(3))
 	return (
-		map_to_byte(r, 9),
-		map_to_byte(g, 9),
-		map_to_byte(b, 5)
-	)
+		map_to_byte(color % 10, 9),
+		map_to_byte(color // 10 % 10, 9),
+		map_to_byte(color // 100, 5))
 
 def rgb_to_color(rgb):
-	return int(f"{map_from_byte(rgb[2], 5)}{map_from_byte(rgb[1], 9)}{map_from_byte(rgb[0], 9)}")
+	return (
+		100 * map_from_byte(rgb[2], 5)
+		+ 10 * map_from_byte(rgb[1], 9)
+		+ map_from_byte(rgb[0], 9))
 
 def map_to_byte(n, max):
 	return round(n * 255 / max)
 
 def map_from_byte(n, max):
 	return round(n * max / 255)
+
+white = color_to_rgb(599)
 
 window_width = 600
 window_height = 600
@@ -120,8 +123,8 @@ def run_instr(instr):
 	
 	instr_name = instr[0]
 	if (
-			isinstance(instr_name, int) or
-			isinstance(instr_name, float)):
+			isinstance(instr_name, int)
+			or isinstance(instr_name, float)):
 		return instr_name
 	elif instr_name == "forward":
 		dist = run_instr(instr[1])
@@ -168,11 +171,11 @@ def run_instr(instr):
 		turtle_pos = (window_width / 2, window_height / 2)
 		turtle_angle = 0
 	elif instr_name == "clean":
-		memory.fill((255, 255, 255))
+		memory.fill(white)
 	elif instr_name == "clearscreen":
 		turtle_pos = (window_width / 2, window_height / 2)
 		turtle_angle = 0
-		memory.fill((255, 255, 255))
+		memory.fill(white)
 	
 	elif instr_name == "showturtle":
 		is_turtle_shown = True
@@ -282,7 +285,7 @@ pygame.display.set_caption("Crest")
 
 screen = pygame.display.set_mode(window)
 memory = pygame.Surface(window)
-memory.fill((255, 255, 255))
+memory.fill(white)
 truttle = pygame.image.load("truttle.png")
 
 icon = pygame.image.load("icon.png")
@@ -306,7 +309,7 @@ while not done:
 				print(keycode)
 		elif event.type == pygame.KEYUP:
 			if not any(pygame.key.get_pressed()):
-				memory.set_at((599, 599), color_to_rgb(599))
+				memory.set_at((599, 599), white)
 		elif event.type == pygame.QUIT:
 			done = True
 	
