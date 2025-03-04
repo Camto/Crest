@@ -51,7 +51,10 @@ grammar = lark.Lark(r"""
 	LEFT_SQUARE_BRACKET: "["
 	RIGHT_SQUARE_BRACKET: "]"
 	
+	COMMENT: /;[^\n]*\n?/
+	
 	%ignore WS
+	%ignore COMMENT
 	
 	%import common.SIGNED_INT
 	%import common.SIGNED_FLOAT
