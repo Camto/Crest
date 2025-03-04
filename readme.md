@@ -163,7 +163,7 @@ Here is a table of some of the other keycodes, because all would be [far, *far* 
 | Left Control | 295 |
 | Left Shift | 296 |
 | Left Alt | 297 |
-| Left Super (The Windows or command key) | 298 |
+| Left Super (The Windows or Command key) | 298 |
 | Right Control | 299 |
 | Right Shift | 300 |
 | Right Alt | 301 |
