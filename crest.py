@@ -19,12 +19,11 @@ with open(sys.argv[1]) as file:
 	prog = file.read()
 
 grammar = lark.Lark(r"""
-	start: expr*
+	start: stmt*
 	
-	expr: number
-		| arity_0
-		| arity_1 expr
-		| arity_2 expr expr
+	stmt: arity_0_stmt
+		| arity_1_stmt expr
+		| arity_2_stmt expr expr
 		
 		| "if" expr block -> if_
 		| "ifelse" expr block block -> ifelse
@@ -32,16 +31,27 @@ grammar = lark.Lark(r"""
 		| "forever" block -> forever
 		| "while" expr block -> while_
 	
-	arity_0: /pendown|penup|heading|pixel|xcor|ycor|pendown|pencolor|home|clean|clearscreen|showturtle|hideturtle|shownp|true|false|nextframe/
+	expr: number
+		| arity_0_expr
+		| arity_1_expr expr
+		| arity_2_expr expr expr
 	
-	arity_1: /forward|back|left|right|setpencolor|setheading|not|debug/
+	arity_0_stmt: /pendown|penup|home|clean|clearscreen|showturtle|hideturtle|nextframe/
 	
-	arity_2: /offsetpixel|setpos|and|or|equal|lessthan|morethan|plus|minus/
+	arity_1_stmt: /forward|back|left|right|setpencolor|setheading|debug/
+	
+	arity_2_stmt: /setpos/
+	
+	arity_0_expr: /heading|pixel|xcor|ycor|pendownp|pencolor|shownp|true|false/
+	
+	arity_1_expr: /not/
+	
+	arity_2_expr: /and|or|equal|lessthan|morethan|plus|minus/
 	
 	?number: SIGNED_FLOAT -> float
 		| SIGNED_INT -> int
 	
-	block: "[" expr* "]"
+	block: "[" stmt* "]"
 	
 	%ignore WS
 	
@@ -51,10 +61,14 @@ grammar = lark.Lark(r"""
 
 class transformer(lark.Transformer):
 	start = lambda self, ls: list(ls)
+	stmt = start
 	expr = start
-	arity_0 = lambda self, s: str(s[0])
-	arity_1 = arity_0
-	arity_2 = arity_0
+	arity_0_stmt = lambda self, s: str(s[0])
+	arity_1_stmt = lambda self, s: str(s[0])
+	arity_2_stmt = lambda self, s: str(s[0])
+	arity_0_expr = arity_0_stmt
+	arity_1_expr = arity_0_stmt
+	arity_2_expr = arity_0_stmt
 	block = start
 	if_ = lambda self, ast: ["if"] + ast
 	ifelse = lambda self, ast: ["ifelse"] + ast
