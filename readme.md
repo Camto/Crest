@@ -2,7 +2,7 @@
 
 ## History
 
-In 1792 the german mathematician Berend Weiß studied what he called "movement goemetries", or the goemetry resulting from the relative movement of a point. In programming, this is now called a turtle. Centuries later, a programming language you may know was made that was inspired by his works, Logo. The programming language detailed in this document, on the other hand, is much more faithful to Weiß's original vision of how to use a turtle. Thus it has been named Crest, a kind of really, really old fashioned logo. (Although really crests were from before Weiß's time.) Of course this is all fake, except for the way I chose the language's name, but it makes for a fun story.
+In 1792 the german mathematician Frederick Weiß studied what he called "movement goemetries", or the goemetry resulting from the relative movements of a point on a Cartesian plane. Centuries later, a programming language you may have heard of was made based on his works. That language, called Logo, is what gave the name to Weiß's point: the "turtle". The programming language detailed here, on the other hand, is much more faithful to Weiß's original vision of how to use a turtle. Thus it has been named Crest, a kind of really, really old fashioned logo. (Although really crests were from before Weiß's time.) Unfortunately this is all made up, but it makes for a fun story.
 
 ## The Language
 
@@ -23,30 +23,32 @@ The screen starts out all white, filled by 599s.
 
 ### To Run Crest
 
-The interpreter is `crest.py`, which is used like so: `python ./crest.py <crest_file> <options>`, where options can be any combination of:
+The interpreter is `crest.py`, which is used like so: `python ./crest.py <crest_file> <options>`. The options are:
+- `fps=<n>` to make Crest run at that fps. The default is 30.
+- `debug` to enable the `debug <number>` command that prints that number. By default the command is a noop.
+- `keycodes` to print the keycode of each key you press (this is relating to [input](#input)).
 - `ast` to print out the parsed ast.
-- `keycodes` to print the keycode of each key you press (this is relating to [input](#input))
-- `fps<n>` to make Crest run at that fps instead of 30.
-- `debug` to add the `debug <number>` command that prints that number.
 
-Options are separated by commas.
-
-The interpreter depends on two packages: pygame and lark. Both are available from pip under those same names. (Fun fact: I was going to use the builtin Python turtle library, but it didn't work out as it didn't let you read individual pixels.)
+The interpreter depends on two packages: pygame and lark. Both are available from pip under those same names.
 
 ### Syntax
 
-The syntax is very simple, commands are written with the arguments afterwards, and blocks use `[]`, just like Logo. For example:
+The syntax is very simple; commands are written with the arguments afterwards, blocks use `[]`, just like Logo, and comments go from `;` to the end of the line. For example:
 
 ```
 left 90
 
 forever [
+	; Fetch the input pixel
 	setpos 599 399
 	setpencolor pixel
+	
+	; Completely fill the screen
 	repeat 600 [
 		forward 599
 		setpos 599 minus ycor 1
 	]
+	
 	nextframe
 ]
 ```
@@ -60,21 +62,25 @@ forever [
 - `left <degrees>` rotates the turtle that many degrees to the left.
 - `right <degrees>` is the same as `left` but in the opposite direction.
 - `setpos <x> <y>` moves the turtle to that position.
-- `xcor` returns the turtle's x coordinate.
-- `ycor` returns the turtle's y coordinate.
 - `setheading <degrees>` sets the turtle's rotation to that angle, with 0° being up.
-- `heading` returns the turtle's rotation.
-- `pixel` returns the color of the pixel the turtle is on.
 - `showturtle` shows where the turtle is. The turtle starts hidden.
 - `hideturtle` hides where the turtle is.
+
+#### Turtle Expressions
+- `xcor` returns the turtle's x coordinate.
+- `ycor` returns the turtle's y coordinate.
+- `heading` returns the turtle's rotation.
+- `pixel` returns the color of the pixel the turtle is on.
 - `shownp` return 1 if the turtle is being shown, 0 otherwise.
 
 #### Pen Commands
 
 - `setpencolor <color>` makes the turtle start painting in that color. The starting color is 0.
-- `pencolor` returns the pen's color.
 - `penup` "lifts the pen up", making it so that the turtle doesn't draw anymore when it moves.  The pen starts down.
 - `pendown` "puts the pen back down".
+
+#### Pen Expressions
+- `pencolor` returns the pen's color.
 - `pendownp` returns 1 if the pen is down, 0 otherwise.
 
 #### Reset Commands
@@ -83,7 +89,7 @@ forever [
 - `clean` resets the entire screen.
 - `clearscreen` resets both.
 
-#### Math Commands
+#### Math Expressions
 
 - `true` returns 1.
 - `false` returns 0.
@@ -96,7 +102,7 @@ forever [
 - `plus <number> <number>` returns the sum of its arguments.
 - `minus <number> <number>` returns the first arguments minus the second.
 
-Numbers can be any int or float value, but when they're stored as the pen's color (likely to save the value on the screen), they're rounded and moduloed by 600 so the pen's color is always valid. The rounding is done to the nearest integer. On the other hand, the turtle's position and rotation have no limits to what numbers they can be. But be careful, reading a pixel from the screen out of bound will crash the program.
+Numbers can be any int or float value, but when they're stored as the pen's color (likely to save the value on the screen), they're rounded and moduloed by 600 so the pen's color is always valid. The rounding is done to the nearest integer. On the other hand, the turtle's position and rotation have no limits to what numbers they can be. But be careful, reading a pixel from the screen out of bounds will crash the program.
 
 #### Control Flow Commands
 
@@ -106,13 +112,11 @@ Numbers can be any int or float value, but when they're stored as the pen's colo
 - `forever <block>` will run the block forever.
 - `while <condition> <block>` will run the block until the condition is `0`, reevaluating the condition each time.
 
-None of the control flow commands can be used inside another command.
-
 #### Time Commands
 
 - `nextframe` will make the screen render immediately, instead of waiting for a frame to pass as the program normally does. Then it will wait for the current frame to finish before resuming the program.
 
-Crest tries to always runs at 30fps.
+Crest tries to always runs at a set fps, which is by default 30.
 
 ### Input
 
@@ -184,7 +188,7 @@ forever [
 
 ### `artist.crest` - Turtle Draws a Star
 
-This program animates the turtle drawing a star over and over. This is done repeatedly calling `nextframe` to wait a certain amount of time.
+This program animates the turtle drawing a star over and over. This is done by repeatedly calling `nextframe` to wait a certain amount of time.
 
 ```
 showturtle
