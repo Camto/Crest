@@ -11,7 +11,7 @@ Crest is a Logo-based esolang with a turtle starting in the middle of the screen
 You can tell what color a number corresponds to by decomposing its digits:
 - The last digit is the red channel
 - The middle digit is the green channel
-- The first digit is theh blue channel
+- The first digit is the blue channel
 
 The first digit, being the blue channel, has fewer possible values. The number for each color then gets mapped to the range 0-255. For example:
 - 0 is `#000000`
