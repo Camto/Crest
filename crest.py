@@ -1,6 +1,5 @@
 import sys
 import math
-import types
 import lark
 
 if len(sys.argv) < 2:
@@ -126,7 +125,7 @@ def run_block(block):
 		if should_render():
 			yield
 		
-		if isinstance(res, types.GeneratorType):
+		if res is not None:
 			for _ in res:
 				if should_render():
 					yield
