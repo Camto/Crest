@@ -197,7 +197,7 @@ forever [
 	clearscreen
 	repeat 15 [ nextframe ]
 	left 144
-
+	
 	repeat 5 [
 		right 144
 		forward 100
