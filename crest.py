@@ -4,19 +4,22 @@ import types
 import lark
 
 if len(sys.argv) < 2:
-	print("Please provide a file.")
+	print("""Usage is:
+    python ./crest.py <crest_file> <options>
+The options are:
+- `fps=<n>` to make Crest run at that fps. The default is 30.
+- `debug` to enable the `debug <number>` command that prints that number. By default the command is a noop.
+- `keycodes` to print the keycode of each key you press.
+- `ast` to print out the parsed ast.""")
 	exit()
-
-if len(sys.argv) > 2:
-	options = sys.argv[2].split(",")
-else:
-	options = []
 
 # Only print pygame message if file was provided
 import pygame
 
 with open(sys.argv[1]) as file:
 	prog = file.read()
+
+options = sys.argv[2:]
 
 grammar = lark.Lark(r"""
 	start: cmd*
