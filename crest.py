@@ -99,12 +99,11 @@ window_width = 600
 window_height = 600
 window = (window_width, window_height)
 
-fps_options = list(filter(
-	lambda s: s.startswith("fps"), options))
-if not fps_options:
+fps_opts = [int(s[4:]) for s in options if s.startswith("fps=")]
+if not fps_opts:
 	fps = 30
 else:
-	fps = int(fps_options[0][3:])
+	fps = fps_opts[0]
 
 turtle_pos = (window_width / 2, window_height / 2)
 turtle_angle = 0
@@ -286,7 +285,13 @@ pygame.display.set_caption("Crest")
 screen = pygame.display.set_mode(window)
 memory = pygame.Surface(window)
 memory.fill(white)
-truttle = pygame.image.load("truttle.png")
+
+turtle_opts = [s[7:] for s in options if s.startswith("turtle=")]
+if not turtle_opts:
+	turtle_file = "turtle.png"
+else:
+	turtle_file = turtle_opts[0]
+turtle = pygame.image.load(turtle_file)
 
 icon = pygame.image.load("icon.png")
 pygame.display.set_icon(icon)
@@ -320,10 +325,10 @@ while not done:
 		
 		screen.blit(memory, (0, 0))
 		if is_turtle_shown:
-			rotated_truttle = pygame.transform.rotate(truttle, -turtle_angle)
-			screen.blit(rotated_truttle, (
-				round(turtle_pos[0]) - rotated_truttle.get_width() / 2,
-				(turtle_pos[1]) - rotated_truttle.get_height() / 2))
+			rotated_turtle = pygame.transform.rotate(turtle, -turtle_angle)
+			screen.blit(rotated_turtle, (
+				round(turtle_pos[0]) - rotated_turtle.get_width() / 2,
+				(turtle_pos[1]) - rotated_turtle.get_height() / 2))
 		
 		pygame.display.flip()
 	except StopIteration:
