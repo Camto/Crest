@@ -14,10 +14,10 @@ You can tell what color a number corresponds to by decomposing its digits:
 - The first digit is theh blue channel
 
 The first digit, being the blue channel, has fewer possible values. The number for each color then gets mapped to the range 0-255. For example:
-- 0 is #000000
-- 599 is #ffffff
-- 9 is #ff0000
-- 122 is #393933
+- 0 is `#000000`
+- 599 is `#ffffff`
+- 9 is `#ff0000`
+- 122 is `#393933`
 
 The screen starts out all white, filled by 599s.
 
