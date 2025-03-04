@@ -53,7 +53,7 @@ forever [
 ]
 ```
 
-### The Commands
+### The Commands and Expressions
 
 #### Turtle Commands
 
